@@ -1,4 +1,6 @@
+import 'package:balanced_meal/components/navigate_animation.dart';
 import 'package:balanced_meal/components/primary_button.dart';
+import 'package:balanced_meal/pages/details.dart';
 import 'package:balanced_meal/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +16,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
 
   void handleOrderFood (){
+    Navigator.push(context, SlidePageRoute(page: EnterDetailsPage()));
 
   }
   @override
@@ -21,6 +24,8 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: SafeArea(child: SingleChildScrollView(
         child: Container(
+          height: 100.h,
+          width: 100.w,
           padding: EdgeInsets.symmetric(horizontal:6.67.w ),
           decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage('assets/1_ Welcome screen.png' ),
@@ -56,14 +61,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 3.75.h,),
-              Text(
-                'Order Food',
-                style: GoogleFonts.poppins(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
+
               PrimaryButton(text: 'Order Food', onPressed: handleOrderFood),
               SizedBox(height: 6.h),
 

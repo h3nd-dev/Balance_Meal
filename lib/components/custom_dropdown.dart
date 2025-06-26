@@ -1,70 +1,90 @@
+import 'package:balanced_meal/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class CustomDropdownField<T> extends StatelessWidget {
-  final String label;
-  final T? value;
-  final List<DropdownMenuItem<T>> items;
-  final Function(T?) onChanged;
-  final String hint;
+class GenderDropdown extends StatefulWidget {
+  const GenderDropdown({super.key});
 
-  const CustomDropdownField({
-    super.key,
-    required this.label,
-    required this.value,
-    required this.items,
-    required this.onChanged,
-    required this.hint,
-  });
+  @override
+  State<GenderDropdown> createState() => _GenderDropdownState();
+}
+
+class _GenderDropdownState extends State<GenderDropdown> {
+  String? selectedGender;
+  bool isFocused = false;
+
+  final List<String> genderOptions = [
+    'Male',
+    'Female',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 3.h),
+    return Focus(
+      onFocusChange: (focus) {
+        setState(() {
+          isFocused = focus;
+        });
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label,
-            style: GoogleFonts.poppins(
-              fontSize: 11.5.sp, // ~14px
+            'Gender',
+            style: TextStyle(
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
-              height: 22 / 14, // ~1.57 line-height
-              color: Colors.black87,
+              color: const Color(0xFF344054),
             ),
           ),
           SizedBox(height: 1.h),
           Container(
-            height: 6.5.h, // ~52px
-            padding: EdgeInsets.symmetric(horizontal: 4.w),
+            height: 6.5.h,
+            padding: EdgeInsets.symmetric(horizontal: 3.w),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(2.w),
-              color: Colors.white,
+              border: Border.all(
+                color: isFocused ? AppColors.orangeButton : const Color(0xFFEAECF0),
+                width: 1.2,
+              ),
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: DropdownButtonFormField<T>(
-              value: value,
-              items: items,
-              onChanged: onChanged,
-              decoration: const InputDecoration.collapsed(hintText: ''),
-              isExpanded: true,
-              icon: const Icon(Icons.keyboard_arrow_down_rounded),
-              style: GoogleFonts.poppins(
-                fontSize: 10.5.sp,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87,
-              ),
-              hint: Text(
-                hint,
-                style: GoogleFonts.poppins(
-                  fontSize: 10.5.sp,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.grey,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: selectedGender,
+                isExpanded: true,
+                icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Color(0xFF9CA3AF)),
+                style:TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
                 ),
+                hint: Text(
+                  'Choose your gender',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: AppColors.disabledTextColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                items: genderOptions.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedGender = newValue;
+                  });
+                },
               ),
-              dropdownColor: Colors.white,
-              borderRadius: BorderRadius.circular(2.w),
             ),
           ),
         ],

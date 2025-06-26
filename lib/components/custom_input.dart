@@ -1,3 +1,4 @@
+import 'package:balanced_meal/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +27,7 @@ class CustomInputField extends StatelessWidget {
           Text(
             label,
             style: GoogleFonts.poppins(
-              fontSize: 11.5.sp, // Approx 14px
+              fontSize: 14.sp, // Approx 14px
               fontWeight: FontWeight.w500,
               height: 22 / 14, // ≈ 1.57 line-height
               letterSpacing: 0,
@@ -41,17 +42,26 @@ class CustomInputField extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hint,
                 suffix: suffix,
-                hintStyle: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w300,
-                  fontSize: 10.5.sp,
-                  color: Colors.grey,
+                hintStyle: GoogleFonts.questrial(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  color: AppColors.disabledTextColor,
                 ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0),
+                contentPadding: EdgeInsets.symmetric(horizontal: 2.4.w, vertical: 0),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(2.w),
-                  borderSide: BorderSide(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Color(0xFFEAECF0), width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Color(0xFFEAECF0), width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: AppColors.orangeButton, width: 1.2),
                 ),
               ),
+
             ),
           ),
         ],
